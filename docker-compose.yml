@@ -1,0 +1,104 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:latest
+    networks:
+      - integration_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+
+  master:
+    build: .
+    volumes:
+      - ./output:/app/output
+      - ./src:/app/src
+      - ./input:/app/input
+    environment:
+      - ROLE=master
+      - PYTHONUNBUFFERED=1
+    networks:
+      - integration_network
+    depends_on:
+      redis:
+        condition: service_healthy
+    command: python src/main.py
+
+  worker-1:
+    build: .
+    volumes:
+      - ./output:/app/output
+      - ./src:/app/src
+      - ./input:/app/input
+    environment:
+      - ROLE=worker
+      - PYTHONUNBUFFERED=1
+      - WORKER_ID=1
+    networks:
+      - integration_network
+    depends_on:
+      redis:
+        condition: service_healthy
+    command: python src/main.py
+    restart: always
+
+  worker-2:
+    build: .
+    volumes:
+      - ./output:/app/output
+      - ./src:/app/src
+      - ./input:/app/input
+    environment:
+      - ROLE=worker
+      - PYTHONUNBUFFERED=1
+      - WORKER_ID=2
+    networks:
+      - integration_network
+    depends_on:
+      redis:
+        condition: service_healthy
+    command: python src/main.py
+    restart: always
+
+  worker-3:
+    build: .
+    volumes:
+      - ./output:/app/output
+      - ./src:/app/src
+      - ./input:/app/input
+    environment:
+      - ROLE=worker
+      - PYTHONUNBUFFERED=1
+      - WORKER_ID=3
+    networks:
+      - integration_network
+    depends_on:
+      redis:
+        condition: service_healthy
+    command: python src/main.py
+    restart: always
+
+  worker-4:
+    build: .
+    volumes:
+      - ./output:/app/output
+      - ./src:/app/src
+      - ./input:/app/input
+    environment:
+      - ROLE=worker
+      - PYTHONUNBUFFERED=1
+      - WORKER_ID=4
+    networks:
+      - integration_network
+    depends_on:
+      redis:
+        condition: service_healthy
+    command: python src/main.py
+    restart: always
+
+networks:
+  integration_network:
+    driver: bridge
