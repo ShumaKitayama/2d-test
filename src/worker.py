@@ -5,8 +5,9 @@ import os
 
 class Worker:
     def __init__(self):
+        # Redisホストを正しい名前に設定
         self.redis_client = redis.Redis(host='redis', port=6379, db=0)
-        self.worker_id = os.getenv('WORKER_ID', '0')  # ワーカーIDを取得（デフォルト0）
+        self.worker_id = os.getenv('WORKER_ID', '0')
     
     def start(self):
         """ワーカープロセスのメインループ"""

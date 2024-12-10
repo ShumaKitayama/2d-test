@@ -3,16 +3,20 @@ version: '3.8'
 services:
   redis:
     image: redis:latest
+    container_name: redis
     networks:
-      - integration_network
+      - global_network
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
       timeout: 3s
       retries: 3
+    ports:
+      - "6379:6379"  # 外部アクセスが必要ならこれを公開
 
   master:
     build: .
+    container_name: master
     volumes:
       - ./output:/app/output
       - ./src:/app/src
@@ -21,14 +25,20 @@ services:
       - ROLE=master
       - PYTHONUNBUFFERED=1
     networks:
-      - integration_network
+      - global_network
     depends_on:
       redis:
         condition: service_healthy
     command: python src/main.py
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   worker-1:
     build: .
+    container_name: worker-1
     volumes:
       - ./output:/app/output
       - ./src:/app/src
@@ -38,15 +48,15 @@ services:
       - PYTHONUNBUFFERED=1
       - WORKER_ID=1
     networks:
-      - integration_network
+      - global_network
     depends_on:
       redis:
         condition: service_healthy
     command: python src/main.py
-    restart: always
 
   worker-2:
     build: .
+    container_name: worker-2
     volumes:
       - ./output:/app/output
       - ./src:/app/src
@@ -56,15 +66,15 @@ services:
       - PYTHONUNBUFFERED=1
       - WORKER_ID=2
     networks:
-      - integration_network
+      - global_network
     depends_on:
       redis:
         condition: service_healthy
     command: python src/main.py
-    restart: always
 
   worker-3:
     build: .
+    container_name: worker-3
     volumes:
       - ./output:/app/output
       - ./src:/app/src
@@ -74,15 +84,15 @@ services:
       - PYTHONUNBUFFERED=1
       - WORKER_ID=3
     networks:
-      - integration_network
+      - global_network
     depends_on:
       redis:
         condition: service_healthy
     command: python src/main.py
-    restart: always
 
   worker-4:
     build: .
+    container_name: worker-4
     volumes:
       - ./output:/app/output
       - ./src:/app/src
@@ -92,13 +102,12 @@ services:
       - PYTHONUNBUFFERED=1
       - WORKER_ID=4
     networks:
-      - integration_network
+      - global_network
     depends_on:
       redis:
         condition: service_healthy
     command: python src/main.py
-    restart: always
 
 networks:
-  integration_network:
+  global_network:
     driver: bridge
