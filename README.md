@@ -5,7 +5,7 @@
 
 実行:
 ```
-docker-compose up (--build)
+python3 benchmark.py
 ```
 
 計算結果等は `./output/` が作成され、そこに保存されます。実行を繰り返すと上書きされます。
