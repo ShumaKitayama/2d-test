@@ -23,7 +23,7 @@ class Master:
         integrator = Integrator(task_data['func_str'], task_data['x_range'], task_data['y_range'])
         
         # タスクを分割
-        sub_tasks = integrator.divide_tasks(num_workers=4)  # ワーカー数に合わせる
+        sub_tasks = integrator.divide_tasks(num_workers=1)  # ワーカー数に合わせる
         
         # タスク数をRedisに記録
         total_tasks = len(sub_tasks)

@@ -96,7 +96,8 @@ def main():
     subprocess.run("docker-compose up -d", shell=True)
 
     # コンテナリスト
-    containers = ["master", "worker-1", "worker-2", "worker-3", "worker-4"]
+    containers = ["master", "worker-1"]
+    #, "worker-2", "worker-3", "worker-4"
 
     # リアルタイムでリソース使用率を監視
     monitoring = True

@@ -54,59 +54,59 @@ services:
         condition: service_healthy
     command: python src/main.py
 
-  worker-2:
-    build: .
-    container_name: worker-2
-    volumes:
-      - ./output:/app/output
-      - ./src:/app/src
-      - ./input:/app/input
-    environment:
-      - ROLE=worker
-      - PYTHONUNBUFFERED=1
-      - WORKER_ID=2
-    networks:
-      - global_network
-    depends_on:
-      redis:
-        condition: service_healthy
-    command: python src/main.py
+#  worker-2:
+#    build: .
+#    container_name: worker-2
+#    volumes:
+#      - ./output:/app/output
+#      - ./src:/app/src
+#      - ./input:/app/input
+#    environment:
+#      - ROLE=worker
+#      - PYTHONUNBUFFERED=1
+#      - WORKER_ID=2
+#    networks:
+#      - global_network
+#    depends_on:
+#      redis:
+#        condition: service_healthy
+#    command: python src/main.py
 
-  worker-3:
-    build: .
-    container_name: worker-3
-    volumes:
-      - ./output:/app/output
-      - ./src:/app/src
-      - ./input:/app/input
-    environment:
-      - ROLE=worker
-      - PYTHONUNBUFFERED=1
-      - WORKER_ID=3
-    networks:
-      - global_network
-    depends_on:
-      redis:
-        condition: service_healthy
-    command: python src/main.py
+#  worker-3:
+#    build: .
+#    container_name: worker-3
+#    volumes:
+#      - ./output:/app/output
+#      - ./src:/app/src
+#      - ./input:/app/input
+#    environment:
+#      - ROLE=worker
+#      - PYTHONUNBUFFERED=1
+#      - WORKER_ID=3
+#    networks:
+#      - global_network
+#    depends_on:
+#      redis:
+#        condition: service_healthy
+#    command: python src/main.py
 
-  worker-4:
-    build: .
-    container_name: worker-4
-    volumes:
-      - ./output:/app/output
-      - ./src:/app/src
-      - ./input:/app/input
-    environment:
-      - ROLE=worker
-      - PYTHONUNBUFFERED=1
-      - WORKER_ID=4
-    networks:
-      - global_network
-    depends_on:
-      redis:
-        condition: service_healthy
-    command: python src/main.py
+#  worker-4:
+#    build: .
+#    container_name: worker-4
+#    volumes:
+#      - ./output:/app/output
+#      - ./src:/app/src
+#      - ./input:/app/input
+#    environment:
+#      - ROLE=worker
+#      - PYTHONUNBUFFERED=1
+#      - WORKER_ID=4
+#    networks:
+#      - global_network
+#    depends_on:
+#      redis:
+#        condition: service_healthy
+#    command: python src/main.py
 
 networks:
   global_network:
