@@ -8,8 +8,8 @@ from integrator import Integrator
 
 class Master:
     def __init__(self):
-        self.redis_client = redis.Redis(host='redis', port=6379, db=0)  # Redisクライアントを初期化
-        self.last_logged_tasks = 0  # 最後にログ出力した完了タスク数
+        self.redis_client = redis.Redis(host='redis', port=6379, db=0)
+        self.last_logged_tasks = 0
 
     def load_task(self, filepath):
         """設定ファイルからタスクデータを読み込む"""

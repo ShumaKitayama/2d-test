@@ -1,6 +1,6 @@
 {
-    "func_str": "x**2 + y**2",  
-    "x_range": [0, 1],          
-    "y_range": [0, 1]           
+    "func_str": "x**4 + y**4",  
+    "x_range": [0, 4],          
+    "y_range": [0, 4]           
   }
   
